@@ -74,7 +74,7 @@ app.post('/api/shorturl', (req, res) => {
   console.log(url);
   console.log(urlRegex.test(url));
   if (!urlRegex.test(url)) {
-    console.log('invalid url');
+    // console.log('invalid url');
     return res.status(400).json({ error: 'invalid url' });
   }
 
