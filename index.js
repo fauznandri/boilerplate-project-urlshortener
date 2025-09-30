@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const dns = require('dns');
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -17,6 +18,21 @@ app.get('/', function(req, res) {
 // Your first API endpoint
 app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
+});
+
+app.post('/api/shorturl', function(req, res) {
+  const url = req.body.url;
+  const short_url = 15562;
+
+  dns.lookup(url, (err, address, family) => {
+    if (err) {
+      console.error('DNS lookup failed:', err);
+      return;
+    }
+    console.log('DNS lookup succeeded:', address);
+  });
+
+  res.json({ original_url: url, short_url: short_url });
 });
 
 app.listen(port, function() {
